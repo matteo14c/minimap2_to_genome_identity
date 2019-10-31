@@ -1,7 +1,8 @@
 #ALL paf ffiles
 @files=<*.paf>;
 #fasta di tutti i genomi
-@genomes=<*.fna>M
+@genomes=<*.fna>;
+open(OUT,">Genome_ID.tsv")
 
 
 foreach $f (@files)
@@ -39,15 +40,15 @@ foreach $f (@files)
 	$sim_Data{$g2}{$g1}=$ID;
 }
 @genomes=sort(keys %sim_Data);
-print " @genomes\n";
+print OUT " @genomes\n";
 	
 foreach $g1 (@genomes)
 {
-	print "$g1 ";
+	print OUT "$g1 ";
 	foreach $g2 (@genomes)
 	{
 		$id = $g1 eq $g2 ? 100 : $sim_Data{$g1}{$g2};
-		print "$id ";
+		print OUT "$id ";
 	}
-	print "\n";
+	print OUT "\n";
 }
